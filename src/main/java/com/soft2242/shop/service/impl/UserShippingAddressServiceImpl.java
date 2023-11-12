@@ -59,5 +59,30 @@ public class UserShippingAddressServiceImpl extends ServiceImpl<UserShippingAddr
         updateById(address);
         return address.getId();
     }
+    @Override
+    public List<AddressVO> getList(Integer userId) {
+        LambdaQueryWrapper<UserShippingAddress> queryWrapper=new LambdaQueryWrapper<>();
+        queryWrapper.eq(UserShippingAddress::getUserId,userId);
+        queryWrapper.orderByDesc(UserShippingAddress::getIsDefault);
+        List<UserShippingAddress> list=baseMapper.selectList(queryWrapper);
+        List<AddressVO> addressVOList=AddressConvert.INSTANCE.convertToAddressVOList(list);
+        return addressVOList;
+    }
+
+    @Override
+    public AddressVO getAddressDetail(Integer addressId) {
+        UserShippingAddress address=baseMapper.selectById(addressId);
+        AddressVO addressVO=AddressConvert.INSTANCE.convertToAddressVO(address);
+        return addressVO;
+    }
+
+    @Override
+    public String DeleteAddressById(Integer addressId) {
+        UserShippingAddress userShippingAddress=baseMapper.selectById(addressId);
+        userShippingAddress.setDeleteFlag(1);
+        updateById(userShippingAddress);
+        AddressVO addressVO=AddressConvert.INSTANCE.convertToAddressVO(userShippingAddress);
+        return "删除成功";
+    }
 }
 

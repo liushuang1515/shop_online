@@ -26,7 +26,6 @@ import com.soft2242.shop.vo.RecommendGoodsVO;
 public interface GoodsService extends IService<Goods> {
 
     IndexTabRecommendVO getTabRecommendGoodsByTabId(RecommendByTabGoodsQuery query);
-    GoodsVO getGoodsDetail(Integer id);
 
     /**
      * 首页推荐 - 猜你喜欢(分页)
@@ -36,5 +35,5 @@ public interface GoodsService extends IService<Goods> {
      */
     PageResult<RecommendGoodsVO> getRecommendGoodsByPage(Query query);
 
-
+    GoodsVO getGoodsDetail(Integer id);
 }
