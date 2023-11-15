@@ -3,7 +3,6 @@ package com.soft2242.shop.vo;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.soft2242.shop.common.utils.DateUtils;
 import io.swagger.v3.oas.annotations.media.Schema;
-import jakarta.validation.constraints.NotNull;
 import lombok.Data;
 
 import java.sql.Timestamp;
