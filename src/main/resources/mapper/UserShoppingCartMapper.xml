@@ -16,4 +16,21 @@
         <result column="update_time" property="updateTime" />
     </resultMap>
 
+    <select id="getCartGoodsInfo" resultType="com.soft2242.shop.vo.CartGoodsVO">
+        select cart.id,
+               goods.name,
+               cart.goods_id,
+               goods.cover     as picture,
+               cart.attrs_text,
+               cart.price,
+               goods.price     as nowPrice,
+               cart.selected,
+               goods.inventory as stock,
+               cart.count,
+               goods.discount
+        from t_user_shopping_cart as cart
+                 left join t_goods as goods on cart.goods_id = goods.id
+        where cart.delete_flag = 0
+          and cart.user_id = #{id}
+    </select>
 </mapper>

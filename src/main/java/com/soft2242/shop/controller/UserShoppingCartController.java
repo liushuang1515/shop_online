@@ -39,15 +39,15 @@ public class UserShoppingCartController {
     @Operation(summary = "加入购物车")
     @PostMapping("add")
     public Result<CartGoodsVO> addShopCart(@RequestBody @Validated CartQuery query) {
-        query.setUserId(getUserId(request));
+        query.setUserId(query.getUserId());
         CartGoodsVO goodsVO = userShoppingCartService.addShopCart(query);
         return Result.ok(goodsVO);
     }
 
     @Operation(summary = "获取购物车列表")
     @GetMapping("list")
-    public Result<List<CartGoodsVO>> shopCartList(HttpServletRequest request) {
-        Integer userId = getUserId(request);
+    public Result<List<CartGoodsVO>> shopCartList(@RequestParam("userId") Integer userId) {
+//        Integer userId = getUserId(request);
         List<CartGoodsVO> list = userShoppingCartService.shopCartList(userId);
         return Result.ok(list);
     }

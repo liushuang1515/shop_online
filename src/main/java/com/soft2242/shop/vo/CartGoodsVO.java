@@ -2,11 +2,12 @@ package com.soft2242.shop.vo;
 
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
-
 @Data
 public class CartGoodsVO {
     @Schema(description = "主键id")
     private Integer id;
+    @Schema(description = "商品id")
+    private Integer goodsId;
     @Schema(description = "商品名称")
     private String name;
     @Schema(description = "属性")
