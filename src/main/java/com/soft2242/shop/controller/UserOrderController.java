@@ -1,18 +1,19 @@
 package com.soft2242.shop.controller;
 
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import com.soft2242.shop.common.exception.ServerException;
+import com.soft2242.shop.vo.OrderDetailVO;
+import org.springframework.web.bind.annotation.*;
 import com.alibaba.fastjson2.JSONObject;
 import com.soft2242.shop.common.result.Result;
 import com.soft2242.shop.service.UserOrderService;
 import com.soft2242.shop.vo.UserOrderVO;
 import io.swagger.v3.oas.annotations.Operation;
+import com.soft2242.shop.vo.SubmitOrderVO;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.servlet.http.HttpServletRequest;
 import lombok.AllArgsConstructor;
 import org.springframework.validation.annotation.Validated;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
+
 import static com.soft2242.shop.common.utils.ObtainUserIdUtils.getUserId;
 
 /**
@@ -39,6 +40,24 @@ public class UserOrderController {
         json.put("id", orderId);
         return Result.ok(json);
     }
+    @Operation(summary = "获取订单详情")
+    @GetMapping("info")
+    public Result<OrderDetailVO> getOrderInfo(@RequestParam Integer id) {
+        if (id == null) {
+            throw new ServerException("订单信息不存在");
+        }
+        OrderDetailVO orderDetail = userOrderService.getOrderDetail(id);
+        return Result.ok(orderDetail);
+    }
+
+    @Operation(summary = "填写订单 - 获取预付订单")
+    @GetMapping("pre")
+    public Result<SubmitOrderVO> getPreOrderDetail(HttpServletRequest request) {
+        Integer userId = getUserId(request);
+        SubmitOrderVO preOrderDetail = userOrderService.getPreOrderDetail(userId);
+        return Result.ok(preOrderDetail);
+    }
+
 
 
 }
