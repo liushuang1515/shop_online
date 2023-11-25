@@ -1,13 +1,10 @@
 package com.soft2242.shop.common.utils;
 
 import java.util.Random;
-
 /**
  * 生成6位随机数
  * @return
  */
-
-
 public class GeneratorCodeUtils {
     public static String generateCode() {
         int n = 6;
